@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.pal.collecttool;
+package com.pal.collecttool.activity;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -34,6 +34,7 @@ import com.cjt2325.cameralibrary.listener.ClickListener;
 import com.cjt2325.cameralibrary.listener.ErrorListener;
 import com.cjt2325.cameralibrary.listener.JCameraListener;
 import com.cjt2325.cameralibrary.util.FileUtil;
+import com.pal.collecttool.R;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
