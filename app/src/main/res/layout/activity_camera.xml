@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CameraActivity">
+    <LinearLayout
+        android:id="@+id/ll_warnning"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="@dimen/host_8"
+        android:paddingBottom="@dimen/host_8"
+        android:background="@android:color/white">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/collect_warnning"/>
+        <TextView
+            android:id="@+id/tv_warnning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/english"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/host_text_16"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/collect_warnning_bac"/>
+    </LinearLayout>
+
+    <com.cjt2325.cameralibrary.JCameraView
+        android:id="@+id/jcameraview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/camera_bg"
+        app:duration_max="10000"
+        app:iconMargin="20dp"
+        app:iconLeft="@drawable/ic_back"
+        app:iconRight="@drawable/ic_photo"
+        app:iconSize="30dp"
+        app:iconSrc="@drawable/ic_camera"
+        />
+</LinearLayout>
