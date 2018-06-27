@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.pal.collect.MainActivity">
+    tools:context="com.pal.collecttool.activity.MainActivity">
 
     <TextView
         android:id="@+id/sample_text"
@@ -18,11 +18,33 @@
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/host_text_20"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="年级:  "
+            android:textSize="20sp"
+            android:textColor="#ff0000"
+            android:layout_margin="@dimen/host_8"/>
+
+        <Spinner
+            android:id="@+id/sp_grade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:entries="@array/grade"
+            android:layout_margin="@dimen/host_8"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="@dimen/host_8"
         android:paddingLeft="@dimen/host_30"
         android:paddingRight="@dimen/host_30"
         android:gravity="center">

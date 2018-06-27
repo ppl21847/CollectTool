@@ -14,4 +14,13 @@
         <attr name="iconRight"/>
         <attr name="duration_max"/>
     </declare-styleable>
+
+    <string-array name="grade">
+        <item>一年级</item>
+        <item>二年级 </item>
+        <item>三年级</item>
+        <item>四年级</item>
+        <item>五年级</item>
+        <item>六年级</item>
+    </string-array>
 </resources>

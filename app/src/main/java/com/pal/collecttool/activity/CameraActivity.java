@@ -19,8 +19,10 @@ package com.pal.collecttool.activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +37,8 @@ import com.cjt2325.cameralibrary.listener.ErrorListener;
 import com.cjt2325.cameralibrary.listener.JCameraListener;
 import com.cjt2325.cameralibrary.util.FileUtil;
 import com.pal.collecttool.R;
+
+import java.io.File;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -93,17 +97,15 @@ public class CameraActivity extends AppCompatActivity {
                 if(FileUtil.isExternalStorageWritable()){
                     String path = FileUtil.saveBitmap("JCamera", bitmap);
                     Log.i("JCameraView", "path = " + path);
+                    startPhotoZoom(Uri.parse(path));
                     //获取到了bitmap 和图片路径
                     //下一步保存到服务器
+                    //开启裁剪图框
+
                 }else{
                     Toast.makeText(CameraActivity.this,"请先允许读写文件权限",Toast.LENGTH_LONG).show();
                 }
 
-
-//                Intent intent = new Intent();
-//                intent.putExtra("path", path);
-//                setResult(101, intent);
-//
             }
 
             @Override
@@ -126,6 +128,26 @@ public class CameraActivity extends AppCompatActivity {
                 //点击了图片
             }
         });
+    }
+
+    /**
+     * 裁剪图片方法实现
+     *
+     * @param uri
+     */
+    public void startPhotoZoom(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        //下面这个crop=true是设置在开启的Intent中设置显示的VIEW可裁剪
+        intent.putExtra("crop", "true");
+        // aspectX aspectY 是宽高的比例
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        // outputX outputY 是裁剪图片宽高
+        intent.putExtra("outputX", 150);
+        intent.putExtra("outputY", 150);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, 3);
     }
 
     @Override

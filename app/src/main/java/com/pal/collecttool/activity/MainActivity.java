@@ -10,18 +10,29 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pal.collecttool.R;
+import com.pal.collecttool.utils.CustomHelper;
+
+import org.devio.takephoto.app.TakePhotoActivity;
+import org.devio.takephoto.model.TImage;
+import org.devio.takephoto.model.TResult;
+
+import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends TakePhotoActivity {
     private final int GET_PERMISSION_REQUEST = 100; //权限申请自定义码
 
     @InjectView(R.id.sample_text)
@@ -42,52 +53,88 @@ public class MainActivity extends AppCompatActivity {
     Button btChemistry;
     @InjectView(R.id.bt_geography)
     Button btGeography;
+    @InjectView(R.id.sp_grade)
+    Spinner spGrade;
 
     private int taskType = 0;
+    private CustomHelper customHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        View contentView = LayoutInflater.from(this).inflate(R.layout.activity_main, null);
+        setContentView(contentView);
         ButterKnife.inject(this);
+
+        // 建立数据源
+        String[] mItems = getResources().getStringArray(R.array.grade);
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, mItems);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //绑定 Adapter到控件
+        spGrade.setAdapter(adapter);
+        customHelper = CustomHelper.of(contentView);
+    }
+
+    @Override
+    public void takeCancel() {
+        super.takeCancel();
+    }
+
+    @Override
+    public void takeFail(TResult result, String msg) {
+        super.takeFail(result, msg);
+    }
+
+    @Override
+    public void takeSuccess(TResult result) {
+        super.takeSuccess(result);
+        showImg(result.getImages());
+    }
+
+    private void showImg(ArrayList<TImage> images) {
+        Intent intent = new Intent(this, ResultActivity.class);
+        intent.putExtra("images", images);
+        startActivity(intent);
     }
 
     @OnClick({R.id.bt_chinese, R.id.bt_math, R.id.bt_english, R.id.bt_politics, R.id.bt_history, R.id.bt_physics, R.id.bt_chemistry, R.id.bt_geography})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
+        customHelper.onClick(view,getTakePhoto());
+        /*switch (view.getId()) {
             case R.id.bt_chinese:
-                taskType = 0;
-                getPermissions(taskType);
+                customHelper.onClick(view,getTakePhoto());
+//                taskType = 0;
+//                getPermissions(taskType);
                 break;
             case R.id.bt_math:
-                taskType = 1;
-                getPermissions(taskType);
+//                taskType = 1;
+//                getPermissions(taskType);
                 break;
             case R.id.bt_english:
-                taskType = 2;
-                getPermissions(taskType);
+//                taskType = 2;
+//                getPermissions(taskType);
                 break;
             case R.id.bt_politics:
-                taskType = 3;
-                getPermissions(taskType);
+//                taskType = 3;
+//                getPermissions(taskType);
                 break;
             case R.id.bt_history:
-                taskType = 4;
-                getPermissions(taskType);
+//                taskType = 4;
+//                getPermissions(taskType);
                 break;
             case R.id.bt_physics:
-                taskType = 5;
-                getPermissions(taskType);
+//                taskType = 5;
+//                getPermissions(taskType);
                 break;
             case R.id.bt_chemistry:
-                taskType = 6;
-                getPermissions(taskType);
+//                taskType = 6;
+//                getPermissions(taskType);
                 break;
             case R.id.bt_geography:
-                taskType = 7;
-                getPermissions(taskType);
+//                taskType = 7;
+//                getPermissions(taskType);
                 break;
-        }
+        }*/
     }
 
     /**
